@@ -18,7 +18,7 @@ CREATE TABLE [dbo].[elfinder_file](
 	[name] [varchar](256) NOT NULL,
 	[content] [varbinary](max) NOT NULL,
 	[size] [int] NOT NULL,
-	[mtime] [datetime2](7) NOT NULL,
+	[mtime] [int] NOT NULL,
 	[mime] [varchar](256) NOT NULL,
 	[read] [bit] NOT NULL,
 	[write] [bit] NOT NULL,
@@ -36,26 +36,29 @@ CREATE TABLE [dbo].[elfinder_file](
 
 SET ANSI_PADDING OFF
 
-
-ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder_f__size__7E6CC920]  DEFAULT ((0)) FOR [Size]
-
-
-ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder_f__mime__7F60ED59]  DEFAULT ('unknown') FOR [Mime]
+ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder_f__mtime__7E6CC918]  DEFAULT ((0)) FOR [mtime]
 
 
-ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder_f__read__00551192]  DEFAULT ('1') FOR [Read]
+ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder_f__size__7E6CC920]  DEFAULT ((0)) FOR [size]
 
 
-ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder___write__014935CB]  DEFAULT ('1') FOR [Write]
+ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder_f__mime__7F60ED59]  DEFAULT ('unknown') FOR [mime]
 
 
-ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder___locke__023D5A04]  DEFAULT ('0') FOR [Locked]
+ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder_f__read__00551192]  DEFAULT ('1') FOR [read]
 
 
-ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder___hidde__03317E3D]  DEFAULT ('0') FOR [Hidden]
+ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder___write__014935CB]  DEFAULT ('1') FOR [write]
+
+
+ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder___locked__023D5A04]  DEFAULT ('0') FOR [locked]
+
+
+ALTER TABLE [dbo].[elfinder_file] ADD  CONSTRAINT [DF__elfinder___hidden__03317E3D]  DEFAULT ('0') FOR [hidden]
+
 
 INSERT INTO elfinder_file 
 (parent_id, name, content, size, mtime, mime, [read], write, locked, hidden, width, height) VALUES 
-('0', 'DATABASE', convert(varbinary(max),''), '0', GETDATE(), 'directory', '1', '1', '0', '0', '0', '0');
+('0', 'DATABASE', convert(varbinary(max),''), '0', '', 'directory', '1', '1', '0', '0', '0', '0');
 
 SELECT * from elfinder_file
